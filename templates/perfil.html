@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>{{nome_usuario}}</title>
     <style>body {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -102,19 +100,12 @@
 
 }</style>
 </head>
-<body>
-    <div class="page">
-        <form method="POST" class="formLogin">
-            <h1>Login</h1>
-            <p>Digite os seus dados de acesso nos campos abaixo.</p>
-            <label for="email">E-mail</label>
-            <input type="email" name="email" placeholder="Digite seu e-mail" autofocus="true" />
-            <label for="password">Senha</label>
-            <input type="password" name="senha" placeholder="Digite sua senha" />
-            <a href="/">Esqueci minha senha</a>
-            <a href="/">Home</a>
-            <input type="submit" value="Acessar" class="btn" />
-        </form>
+<body class="page">
+
+    <div class="formLogin">
+    <h1>pagina de perfil</h1>
+    <p>{{nome_usuario}} <a href="perfil/editar">alterar nome</a></p>
+    <a href="perfil/sair">sair</a>
     </div>
 
 </body>
