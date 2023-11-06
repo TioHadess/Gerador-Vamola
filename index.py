@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
@@ -14,8 +14,18 @@ def homepage():
 def login():
     return render_template('login.html')
 
-@app.route('/cadastro')
+@app.route('/cadastro', methods=['GET','POST'])
 def cadastro():
+    if request.method == 'POST':
+        req = request.form
+
+        nome = req['nome']
+        email = req.get['email']
+        senha = request.form['senha']
+
+        print(nome,email,senha)
+
+        return redirect(request.url)
     return render_template('cadastro.html')
 
 @app.route('/usuarios/<nome_usuario>')

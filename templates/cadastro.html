@@ -101,23 +101,27 @@
 }</style>
 </head>
 <body class="page">
-{% extends 'layout.html' %}
+    <div>
 
-{% block conteudo %}
-    <form method="POST" class="formLogin">
-        <h1>Cadastre-se</h1>
-        <p>Digite os seus dados nos campos abaixo.</p>
-      <label for="Nome">Nome:</label>
-      <input type="text" id="Nome" name="Nome"><br><br>
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email"><br><br>
-        <label for="senha">Senha:</label>
-      <input type="password" id="senha" name="senha"><br><br>
-      <input type="submit" value="Submit"><br>
-    <a href="/">Home</a>
-    </form>
-
-{% endblock %}
+        <form method="POST" class="formLogin">
+            <h1>Cadastre-se</h1>
+            <p>Digite os seus dados nos campos abaixo.</p>
+            Nome:
+            <br>
+            <input type="text" name="nome">
+            <br>
+            Email:
+            <br>
+            <input type="email" name="email">
+            <br>
+            Senha:
+            <br>
+            <input type="password" name="senha">
+            <br>
+            <input type="submit" value="Enviar">
+            <a href="/">Home</a>
+        </form>
+    </div>
 
 </body>
 </html>
