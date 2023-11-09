@@ -70,7 +70,7 @@ def login():
             error = "Este email ou senha não existem. Tente novamente!."
             return render_template('login.html', error=error)
 
-        user_alpha = db.one_or_404(db.select(User).filter_by(email=email).filter_by(senha=senha))
+        user_alpha = user_with_email
         user_alpha.is_authenticated = True
         login_user(user_alpha, remember=False)
         return redirect('/perfil')
@@ -111,8 +111,12 @@ def editar():
         req = request.form
         to_edit_user = User.query.filter_by(id = current_user.id).first()
         to_edit_user.nome = req['nome']
-        db.session.commit()
         current_user.nome = req['nome']
+        to_edit_user.email = req['email']
+        current_user.email = req['email']
+        to_edit_user.senha = req['senha']
+        db.session.commit()
+        current_user.senha = req['senha']
         return redirect('/perfil')
 
     return render_template('editar.html', nome_usuario=current_user.nome)
