@@ -6,7 +6,6 @@ from flask_login import LoginManager
 from flask_login import login_user
 from flask_login import login_required, current_user, logout_user
 
-
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
@@ -99,12 +98,9 @@ def cadastro():
         return redirect('/')
     return render_template('cadastro.html')
 
-@app.route('/perfil', methods=['GET'])
+@app.route('/perfil', methods=['GET', 'POST'])
 @login_required
 def perfil():
-
-    
-
     return render_template('perfil.html', nome_usuario=current_user.nome)
 
 @app.route('/perfil/editar', methods=['GET', 'POST'])
@@ -114,9 +110,19 @@ def editar():
         req = request.form
         to_edit_user = User.query.filter_by(id = current_user.id).first()
         to_edit_user.nome = req['nome']
+        db.session.commit()
         current_user.nome = req['nome']
+        return redirect('/perfil')
+    elif request.method == 'POST':
+        req = request.form
+        to_edit_user = User.query.filter_by(id=current_user.id).first()
         to_edit_user.email = req['email']
+        db.session.commit()
         current_user.email = req['email']
+        return redirect('/perfil')
+    elif request.method == 'POST':
+        req = request.form
+        to_edit_user = User.query.filter_by(id=current_user.id).first()
         to_edit_user.senha = req['senha']
         db.session.commit()
         current_user.senha = req['senha']
