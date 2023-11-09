@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>cadstro</title>
+    <title>Cadastro</title>
     <style>body {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -102,7 +102,9 @@
 </head>
 <body class="page">
     <div>
-
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
         <form method="POST" class="formLogin">
             <h1>Cadastre-se</h1>
             <p>Digite os seus dados nos campos abaixo.</p>

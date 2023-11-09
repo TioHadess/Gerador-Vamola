@@ -80,6 +80,13 @@ def cadastro():
         email = req['email']
         senha = req['senha']
 
+        user_with_email = User.query.filter_by(email=email).first()
+        user_with_password = User.query.filter_by(senha=senha).first()
+
+        if user_with_email or user_with_password:
+            error = "Este email ou senha já está em uso. Escolha um diferente."
+            return render_template('cadastro.html', error=error)
+
         db_user = User(nome = nome, email = email, senha = senha)
         db.session.add(db_user)
         db.session.commit()
