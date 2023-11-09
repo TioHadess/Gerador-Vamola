@@ -65,6 +65,11 @@ def login():
         email = req['email']
         senha = req['senha']
 
+        user_with_email = User.query.filter_by(email = email).first()
+        if not user_with_email:
+            error = "Este email ou senha não existem. Tente novamente!."
+            return render_template('login.html', error=error)
+
         user_alpha = db.one_or_404(db.select(User).filter_by(email=email).filter_by(senha=senha))
         user_alpha.is_authenticated = True
         login_user(user_alpha, remember=False)

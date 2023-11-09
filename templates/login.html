@@ -105,11 +105,15 @@
 </head>
 <body>
     <div class="page">
+
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
         <form method="POST" class="formLogin">
             <h1>Login</h1>
             <p>Digite os seus dados de acesso nos campos abaixo.</p>
             <label for="email">E-mail</label>
-            <input type="email" name="email" placeholder="Digite seu e-mail" autofocus="true" />
+            <input type="email" name="email" placeholder="Digite seu e-mail" autofocus="True" />
             <label for="password">Senha</label>
             <input type="password" name="senha" placeholder="Digite sua senha" />
             <a href="/">Esqueci minha senha</a>
