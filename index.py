@@ -97,11 +97,12 @@ def perfil():
 def editar():
     if request.method == 'POST':
         req = request.form
-        to_edit_user = User.query.where(User.id ==current_user.id).first()
-        to_edit_user.name = req['nome']
+        to_edit_user = User.query.filter_by(id = current_user.id).first()
+        to_edit_user.nome = req['nome']
         db.session.commit()
-        current_user.name = req['nome']
-        return render_template('perfil.html', nome_usuario=current_user.nome)
+        current_user.nome = req['nome']
+        return redirect('/perfil')
+
     return render_template('editar.html', nome_usuario=current_user.nome)
 
 
