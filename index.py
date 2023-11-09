@@ -102,6 +102,9 @@ def cadastro():
 @app.route('/perfil', methods=['GET'])
 @login_required
 def perfil():
+
+    
+
     return render_template('perfil.html', nome_usuario=current_user.nome)
 
 @app.route('/perfil/editar', methods=['GET', 'POST'])
@@ -137,6 +140,7 @@ def delete():
         db.session.commit()
         return redirect('/')
     return render_template('delete.html')
+
 
 # Colocar o site no ar
 if __name__ == '__main__':
