@@ -101,14 +101,23 @@
     transform: scale(1.05);
     background-color: #ff0676;
 
-}</style>
+}
+
+.font_error{
+    color: white
+}
+
+    </style>
 </head>
 <body>
     <div class="page">
 
+        <div>
         {% if error %}
-        <p class="error">{{ error }}</p>
+        <p class="error, font_error">{{ error }}</p>
         {% endif %}
+        </div>
+
         <form method="POST" class="formLogin">
             <h1>Login</h1>
             <p>Digite os seus dados de acesso nos campos abaixo.</p>

@@ -113,7 +113,7 @@ def perfil():
     caracteres = string.ascii_letters + string.digits + string.punctuation
     senha_segura = ''.join(choice(caracteres) for _ in range(tamanho_da_senha))
 
-    return render_template('perfil.html', nome_usuario=current_user.nome, senha_segura=senha_segura)
+    return render_template('perfil.html', nome_usuario=current_user.nome,email_usuario=current_user.email, senha_segura=senha_segura)
 
 @app.route('/perfil/editar', methods=['GET', 'POST'])
 @login_required
