@@ -104,8 +104,20 @@
 <body class="page">
 
     <div class="formLogin">
-    <h1>pagina de perfil</h1>
-    <p>{{nome_usuario}} <a href="perfil/editar">Edite</a></p>
+    <h1>Pagina de perfil</h1>
+    <p>Usuário: {{nome_usuario}} <a href="perfil/editar">Edite</a></p>
+
+    {% if senha_segura %}
+    <div>
+        <h2>Sua Senha Segura:</h2>
+        <p>{{ senha_segura }}</p>
+    </div>
+    {% endif %}
+
+    <form method="POST" action="/perfil">
+        <input type="submit" value="Gerar Nova Senha">
+    </form>
+
     <a href="perfil/sair">Sair</a>
     <a href="/perfil/delete">Excluir conta</a>
     </div>

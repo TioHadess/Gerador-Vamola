@@ -1,10 +1,12 @@
 import os
+import string
 
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_login import login_user
 from flask_login import login_required, current_user, logout_user
+from random import choice
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -101,7 +103,17 @@ def cadastro():
 @app.route('/perfil', methods=['GET', 'POST'])
 @login_required
 def perfil():
-    return render_template('perfil.html', nome_usuario=current_user.nome)
+    senha_segura = None
+
+    if request.method == 'POST':
+        req = request.form
+
+    # Lógica para gerar uma senha aleatória ao acessar a rota
+    tamanho_da_senha = 12  # Você pode ajustar o tamanho da senha conforme necessário
+    caracteres = string.ascii_letters + string.digits + string.punctuation
+    senha_segura = ''.join(choice(caracteres) for _ in range(tamanho_da_senha))
+
+    return render_template('perfil.html', nome_usuario=current_user.nome, senha_segura=senha_segura)
 
 @app.route('/perfil/editar', methods=['GET', 'POST'])
 @login_required
