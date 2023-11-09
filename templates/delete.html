@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{nome_usuario}}</title>
+    <title>Exclusão</title>
+
     <style>body {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -99,15 +100,15 @@
     background-color: #ff0676;
 
 }</style>
+
 </head>
 <body class="page">
-
     <div class="formLogin">
-    <h1>pagina de perfil</h1>
-    <p>{{nome_usuario}} <a href="perfil/editar">alterar nome</a></p>
-    <a href="perfil/sair">Sair</a>
-    <a href="/perfil/delete">Excluir conta</a>
+        <h1>Confirmação de Exclusão de Conta</h1>
+        <p>Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.</p>
+        <form method="POST">
+            <input type="submit" value="Confirmar Exclusão">
+        </form>
     </div>
-
 </body>
 </html>

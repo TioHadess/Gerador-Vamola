@@ -112,6 +112,16 @@ def sair():
     logout_user()
     return redirect('/')
 
+@app.route('/perfil/delete', methods=['GET','POST'])
+@login_required
+def delete():
+    if request.method == 'POST':
+        user_to_delete = User.query.get(current_user.id)
+        db.session.delete(user_to_delete)
+        db.session.commit()
+        return redirect('/')
+    return render_template('delete.html')
+
 # Colocar o site no ar
 if __name__ == '__main__':
     app.run(debug=True)
