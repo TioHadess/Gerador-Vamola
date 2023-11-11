@@ -23,6 +23,8 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.init_app(app)
+
+
 class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -33,8 +35,10 @@ class User(db.Model):
     is_authenticated = True
     is_active = True
     is_anonymous = False
+
     def get_id(self):
         return str(self.id)
+
     def to_json(self):
         return {
             'id': self.id,
@@ -54,6 +58,7 @@ class User(db.Model):
         # since the user_id is just the primary key of our user table, use it in the query for the user
         return User.query.get(int(user_id))
 
+
 @login_manager.unauthorized_handler
 def unauthorized_callback():
     return redirect('/login')
@@ -62,9 +67,11 @@ def unauthorized_callback():
 # route -> hastagtreinamentos.com/
 # função -> o que vc quer exibir naquela pagina
 
+
 @app.route('/')
 def homepage():
     return render_template('index.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -102,7 +109,6 @@ def cadastro():
             error = "Este email já está em uso. Escolha um diferente."
             return render_template('cadastro.html', error=error)
 
-
         db_user = User(nome=nome, email=email)
         db_user.set_password(senha)
 
@@ -128,6 +134,7 @@ def perfil():
 
     return render_template('perfil.html', nome_usuario=current_user.nome, email_usuario=current_user.email, senha_segura=senha_segura)
 
+
 @app.route('/perfil/editar', methods=['GET', 'POST'])
 @login_required
 def editar():
@@ -151,11 +158,13 @@ def editar():
 
     return render_template('editar.html', nome_usuario=current_user.nome, email_usuario=current_user.email, senha_usuario=current_user.senha)
 
+
 @app.route('/perfil/sair', methods=['GET'])
 @login_required
 def sair():
     logout_user()
     return redirect('/')
+
 
 @app.route('/perfil/delete', methods=['GET','POST'])
 @login_required
