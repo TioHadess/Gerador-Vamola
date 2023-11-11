@@ -7,6 +7,8 @@ from flask_login import LoginManager
 from flask_login import login_user
 from flask_login import login_required, current_user, logout_user
 from random import choice
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -41,6 +43,12 @@ class User(db.Model):
             'senha': self.senha
         }
 
+    def set_password(self, password):
+        self.senha = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.senha, password)
+
     @login_manager.user_loader
     def load_user(user_id):
         # since the user_id is just the primary key of our user table, use it in the query for the user
@@ -58,7 +66,7 @@ def unauthorized_callback():
 def homepage():
     return render_template('index.html')
 
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         req = request.form
@@ -66,8 +74,9 @@ def login():
         email = req['email']
         senha = req['senha']
 
-        user_with_email = User.query.filter_by(email = email).first()
-        if not user_with_email:
+        user_with_email = User.query.filter_by(email=email).first()
+
+        if not user_with_email or not user_with_email.check_password(senha):
             error = "Este email ou senha não existem. Tente novamente!."
             return render_template('login.html', error=error)
 
@@ -77,7 +86,8 @@ def login():
         return redirect('/perfil')
     return render_template('login.html')
 
-@app.route('/cadastro', methods=['GET','POST'])
+
+@app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':
         req = request.form
@@ -87,18 +97,21 @@ def cadastro():
         senha = req['senha']
 
         user_with_email = User.query.filter_by(email=email).first()
-        user_with_password = User.query.filter_by(senha=senha).first()
 
-        if user_with_email or user_with_password:
-            error = "Este email ou senha já está em uso. Escolha um diferente."
+        if user_with_email:
+            error = "Este email já está em uso. Escolha um diferente."
             return render_template('cadastro.html', error=error)
 
-        db_user = User(nome = nome, email = email, senha = senha)
+
+        db_user = User(nome=nome, email=email)
+        db_user.set_password(senha)
+
         db.session.add(db_user)
         db.session.commit()
 
         return redirect('/')
     return render_template('cadastro.html')
+
 
 @app.route('/perfil', methods=['GET', 'POST'])
 @login_required
