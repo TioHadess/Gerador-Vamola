@@ -63,10 +63,6 @@ class User(db.Model):
 def unauthorized_callback():
     return redirect('/login')
 
-# Criar a 1º pagina do site
-# route -> hastagtreinamentos.com/
-# função -> o que vc quer exibir naquela pagina
-
 
 @app.route('/')
 def homepage():
